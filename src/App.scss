@@ -2,6 +2,11 @@ $primary: #db4c3f;
 $grey: rgb(234,234,234);
 $sidebar-width:300px;
 $header-height:44px;
+
+
+li{
+    list-style: none;
+}
 .container{
     display: grid;
     grid-template-rows: $header-height calc(100vh - $header-height);
@@ -25,9 +30,64 @@ $header-height:44px;
     }
 }
 .sidebar{
-    background-color: $grey;
+    background-color: azure;
     grid-column: 1/2;
     grid-row: 2/3;
+
+    position: sticky;
+    // left: 0;
+    // top: 0;
+
+    // inside content
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px 30px;
+
+    &__middle{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 20px;
+
+        &>span{
+            display: flex;
+        }
+
+        &>h6{
+            font-size: 22px;
+        }
+    }
+
+}
+
+
+
+
+.project__lists,
+.generic__list{
+
+    &>li{
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        font-size: 24px;
+        cursor: pointer;
+        padding: 10px;
+        margin-bottom: 5px 0;
+        border-radius: 4px;
+
+        &:hover{
+            background-color: $grey;
+        }
+        &>span{
+            display: flex;
+        }
+    }
+}
+
+.active{
+    background-color: $grey;
 }
 .content{
     background-color: blanchedalmond;
