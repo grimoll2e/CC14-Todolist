@@ -29,6 +29,7 @@ li{
         cursor: pointer;
     }
 }
+
 .sidebar{
     background-color: azure;
     grid-column: 1/2;
@@ -94,7 +95,7 @@ li{
     background-color: $grey;
 }
 .content{
-    background-color: blanchedalmond;
+    background-color: rgb(202, 194, 194);
     grid-column: 2/3;
     grid-row: 2/3;
     overflow-y: scroll;
