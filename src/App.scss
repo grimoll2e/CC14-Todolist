@@ -76,12 +76,16 @@ li{
         padding: 10px;
         margin-bottom: 5px 0;
         border-radius: 4px;
-
+        
+        
         &:hover{
             background-color: $grey;
         }
         &>span{
             display: flex;
+        }
+        &>h6{
+            font-weight: 500;
         }
     }
 }
