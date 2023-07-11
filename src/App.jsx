@@ -9,11 +9,8 @@ function App() {
 
   return (
     <div className="container">
-      {/* header */}
       <Header />
-      {/* sidebar */}
       <Sidebar /> 
-      {/* content */}
       <TodoContent/>
     </div>
   );
