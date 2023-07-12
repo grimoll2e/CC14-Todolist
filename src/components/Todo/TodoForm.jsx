@@ -1,5 +1,17 @@
 import styles from './TodoForm.module.scss'
 import React, { useState } from 'react';
+import PropTypes from 'prop-types'; 
+
+TodoForm.propTypes = {
+    submitText:PropTypes.string.isRequired,
+    onSetIsShow:PropTypes.func.isRequired,
+    onAddtodo:PropTypes.func,
+    onEditTodo:PropTypes.func,
+    todo:PropTypes.oneOfType([
+        PropTypes.object,
+        undefined,
+    ])
+}
 
 export function TodoForm({ onSetIsShow, submitText, todo, onAddtodo, onEditTodo }) {
 
