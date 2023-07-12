@@ -19,11 +19,11 @@ $grey:rgb(234,234,234);
 
 .checkbox__container{
     border-color: rgb(255, 0, 0);
-    color: #343434;
+    color: rgb(0, 0, 0);
     height: 16px;
     width: 16px;
     display: block;
-    border: 1px solid gray;
+    border: 1px solid rgb(0, 0, 0);
     border-radius: 16px;
     text-align: center;
     line-height: 16px;
@@ -39,6 +39,7 @@ $grey:rgb(234,234,234);
 .checkbox__container:hover{
     .checkbox_icon{
         display: inline;
+        color: #6d6d6d;
     }
 }
 .edit__icon,

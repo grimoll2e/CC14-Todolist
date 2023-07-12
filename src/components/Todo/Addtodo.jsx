@@ -14,7 +14,7 @@ export function Addtodo() {
                 <span>+</span>
                 <h3>Add task</h3>
             </div>):(
-            <TodoForm onSetIsShow={handleClickToAddTask}/>
+            <TodoForm onSetIsShow={handleClickToAddTask} submitText='Add task'/>
             )}
         </>
     )
