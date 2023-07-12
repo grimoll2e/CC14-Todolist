@@ -9,7 +9,6 @@ TodoForm.propTypes = {
     onEditTodo:PropTypes.func,
     todo:PropTypes.oneOfType([
         PropTypes.object,
-        undefined,
     ])
 }
 
