@@ -2,7 +2,7 @@ import styles from './Addtodo.module.scss'
 import { useState } from 'react'
 import { TodoForm } from './TodoForm'
 
-export function Addtodo() {
+export function Addtodo({onAddtodo}) {
     const [isShow,setIsShow] = useState(false)
 
     const handleClickToAddTask = () =>{
@@ -14,7 +14,11 @@ export function Addtodo() {
                 <span>+</span>
                 <h3>Add task</h3>
             </div>):(
-            <TodoForm onSetIsShow={handleClickToAddTask} submitText='Add task'/>
+            <TodoForm 
+            onSetIsShow={handleClickToAddTask} 
+            submitText='Add task' 
+            onAddtodo={onAddtodo}
+            />
             )}
         </>
     )

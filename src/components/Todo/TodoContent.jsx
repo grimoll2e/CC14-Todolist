@@ -8,13 +8,10 @@ import mockData from '../../data/todos.json'
 
 export function TodoContent() {
 const [todos,setTodos] = useState(mockData)
-// console.log(uuidv4())
-// console.log(uuidv4())
-// console.log(uuidv4())
-// console.log(uuidv4())
 
-const handleAddtodo=()=>{
-    let newTodoObj = {id:uuidv4(),task:"hello",status:false,due_date:''}
+//add-todo
+const handleAddtodo=(newTask)=>{
+    let newTodoObj = {id:uuidv4(),task:newTask,status:false,due_date:''}
     //แบบที่ 1 
     // const newTodos = [newTodoObj,...todos]
     // setTodos(newTodos)
@@ -22,12 +19,36 @@ const handleAddtodo=()=>{
     setTodos(currentState =>[newTodoObj,...currentState])
     //          ^= เทียบเท่ากับ todos
 }
+
+const handleEdittodo=(todoID,updateObj)=>{
+    const foundedIndex = todos.findIndex(todoObj=>todoObj.id === todoID)
+    if(foundedIndex ==-1){
+        return;
+    } 
+    const newTodos = [...todos]    
+    // แบบที่ 1
+    // let oldtodoObj = newTodos[foundedIndex]
+    // oldtodoObj.task=newTask
+    // แบบที่ 2
+    newTodos[foundedIndex]={...newTodos[foundedIndex],...updateObj }
+    setTodos(newTodos)
+}
+
+const handleDelete = (todoID) =>{
+    const foundedIndex = todos.findIndex(todoObj=>todoObj.id === todoID)
+    if(foundedIndex ==-1){
+        return;
+    } 
+    const newTodos = [...todos]  
+    newTodos.splice(foundedIndex,1)
+    setTodos(newTodos)
+} 
+
     return (
         <main className="content">
             <TodoHeader/>
-            <Addtodo/>
-            <button onClick={handleAddtodo}>test</button>
-            <TodoLists todos={todos}/>
+            <Addtodo onAddtodo={handleAddtodo}/>
+            <TodoLists todos={todos} onEditTodo={handleEdittodo} onDelete={handleDelete}/>
         </main>
     )
 }
