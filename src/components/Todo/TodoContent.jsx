@@ -3,11 +3,11 @@ import { useState } from 'react';
 import { Addtodo } from './Addtodo';
 import { TodoHeader } from './TodoHeader';
 import { TodoLists } from './TodoLists';
-import mockData from '../../data/todos.json'
+// import mockData from '../../data/todos.json'
 
 
-export function TodoContent() {
-const [todos,setTodos] = useState(mockData)
+export function TodoContent({todos,setTodos}) {
+// const [todos,setTodos] = useState(mockData)
 
 //add-todo
 const handleAddtodo=(newTask)=>{
@@ -15,14 +15,14 @@ const handleAddtodo=(newTask)=>{
     //แบบที่ 1 
     // const newTodos = [newTodoObj,...todos]
     // setTodos(newTodos)
-    //แบบที่ 2 update โกย callback
+    //แบบที่ 2 update โดย callback
     setTodos(currentState =>[newTodoObj,...currentState])
     //          ^= เทียบเท่ากับ todos
 }
 
 const handleEdittodo=(todoID,updateObj)=>{
     const foundedIndex = todos.findIndex(todoObj=>todoObj.id === todoID)
-    if(foundedIndex ==-1){
+    if(foundedIndex ===-1){
         return;
     } 
     const newTodos = [...todos]    
@@ -36,7 +36,7 @@ const handleEdittodo=(todoID,updateObj)=>{
 
 const handleDelete = (todoID) =>{
     const foundedIndex = todos.findIndex(todoObj=>todoObj.id === todoID)
-    if(foundedIndex ==-1){
+    if(foundedIndex ===-1){
         return;
     } 
     const newTodos = [...todos]  

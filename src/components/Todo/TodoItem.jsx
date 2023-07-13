@@ -37,7 +37,7 @@ export function TodoItem({todo,onEditTodo,onDelete}) {
                 <HiCheck className={CheckStyles} />
             </div>
             <p className={taskStyle}>{todo.task}</p>
-            <p>{getFormattedDate(todo.due_date)}</p>
+            <span className={styles.date__text}>{getFormattedDate(todo.due_date)}</span>
             <div className={styles.edit__icon} onClick={handleOpenEdit}>
                 <HiPencil />
             </div>

@@ -16,7 +16,6 @@ export function TodoForm({ onSetIsShow, submitText, todo, onAddtodo, onEditTodo 
 
     const [task, setTask] = useState(todo?.task || '')
     const [iserror, setIsError] = useState(false)
-    console.log(todo)
 
     const handleSubmit = (e) => {
         e.preventDefault()
