@@ -1,4 +1,4 @@
-import { object } from "prop-types";
+// import { object } from "prop-types";
 import { useState } from "react";
 import { FaInbox, FaCalendar, FaCalendarAlt, FaChevronDown } from "react-icons/fa";
 
@@ -14,7 +14,7 @@ export function Sidebar({onSelectTab}) {
 
   const genericLists = [
     {
-      title: 'Inbox',
+      title: 'inbox',
       icon: <FaInbox />,
     },
     {

@@ -1,10 +1,10 @@
 import "./App.scss";
-import { Header } from './components/Header';
-import { Sidebar } from "./components/Sidebar";
-import { TodoContent } from "./components/Todo/TodoContent";
+import { Header } from '../components/Header';
+import { Sidebar } from "../components/Sidebar";
+import { TodoContent } from "../components/Todo/TodoContent";
 import { useState } from 'react';
-import mockData from './data/todos.json'
-import { getSevenDayRange } from "./utils/DateUtils";
+import mockData from '../data/todos.json'
+import { getSevenDayRange } from "../utils/DateUtils";
 
 function App() {
   const [todos, setTodos] = useState(mockData)
@@ -23,9 +23,15 @@ function App() {
     setTodos(filterTodo)
   }
   
+  const handleSearch = (searchText) =>{
+    const newTodo = mockData.filter((todoObj)=>todoObj.task.includes(searchText))
+    setTodos(newTodo)
+
+  }
+
   return (
     <div className="container">
-      <Header />
+      <Header onSearchText={handleSearch}/>
       <Sidebar onSelectTab={handleFilterLists} />
       <TodoContent todos={todos} setTodos={setTodos} />
     </div>
