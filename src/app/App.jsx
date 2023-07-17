@@ -8,6 +8,7 @@ import { getSevenDayRange } from "../utils/DateUtils";
 
 function App() {
   const [todos, setTodos] = useState(mockData)
+  const [filterList,setFilterList] = useState(mockData)
 
   const handleFilterLists = (index) => {
     const [nowStr, nextSevenStr] = getSevenDayRange()
@@ -21,10 +22,11 @@ function App() {
       filterTodo = mockData.filter(todoObj => todoObj.due_date >= nowStr && todoObj.due_date <= nextSevenStr)
     }
     setTodos(filterTodo)
+    setFilterList(filterTodo)
   }
   
   const handleSearch = (searchText) =>{
-    const newTodo = mockData.filter((todoObj)=>todoObj.task.includes(searchText))
+    const newTodo = filterList.filter((todoObj)=>todoObj.task.toLocaleLowerCase().includes(searchText))
     setTodos(newTodo)
 
   }
