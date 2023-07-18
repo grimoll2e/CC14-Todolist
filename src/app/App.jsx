@@ -15,17 +15,33 @@ function App() {
 
   useEffect(() => {
     // Run after dismount
-    axios({
-      method: 'get',
-      url: 'http://localhost:8080/todos'
-    }).then(response => {
-      console.log(response)
-      let todoList = response.data.todos
-      setTodos(todoList)
-      setFilterList(todoList)
-    }).catch(err => {
-      console.log(err.response.status)
-    })
+
+    // axios({
+    //   method: 'get',
+    //   url: 'http://localhost:8080/todos'
+    // }).then(response => {
+    //   console.log(response)
+    //   let todoList = response.data.todos
+    //   setTodos(todoList)
+    //   setFilterList(todoList)
+    // }).catch(err => {
+    //   console.log(err.response.status)
+    // })
+
+    // async await
+    async function fetchAllTodo() {
+      try {
+        let response = await axios.get('http://localhost:8080/todos')
+        console.log(response)
+        let todoList = response.data.todos
+        setTodos(todoList)
+        setFilterList(todoList)
+      } catch (err) {
+        console.log(err.response.status)
+      }
+    }
+    fetchAllTodo()
+
   }, [])
 
   //logic function
@@ -56,7 +72,7 @@ function App() {
     <div className="container">
       <Header onSearchText={handleSearch} />
       <Sidebar onSelectTab={handleFilterLists} />
-      <TodoContent todos={filterList} setTodos={setTodos} />
+      <TodoContent todos={filterList} setTodos={setTodos} setFilterList={setFilterList}/>
     </div>
   );
 }

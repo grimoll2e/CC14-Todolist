@@ -6,19 +6,20 @@ import { TodoLists } from './TodoLists';
 // import mockData from '../../data/todos.json'
 
 
-export function TodoContent({todos,setTodos}) {
-// const [todos,setTodos] = useState(mockData)
+export function TodoContent({todos,setTodos,setFilterList}) {
+
 
 //add-todo
-const handleAddtodo=(newTask)=>{
-    let newTodoObj = {id:uuidv4(),task:newTask,status:false,ddate:''}
-    //แบบที่ 1 
-    // const newTodos = [newTodoObj,...todos]
-    // setTodos(newTodos)
-    //แบบที่ 2 update โดย callback
-    setTodos(currentState =>[newTodoObj,...currentState])
-    //          ^= เทียบเท่ากับ todos
-}
+// const handleAddtodo=(newTodoObj)=>{
+//     // let newTodoObj = {id:uuidv4(),task:newTask,status:false,ddate:''}
+//     //แบบที่ 1 
+//     // const newTodos = [newTodoObj,...todos]
+//     // setTodos(newTodos)
+//     //แบบที่ 2 update โดย callback
+//     setTodos(currentState =>[newTodoObj,...currentState])
+//     //          ^= เทียบเท่ากับ todos
+//     // setFilterList(currentState =>[newTodoObj,...currentState])
+// }
 
 const handleEdittodo=(todoID,updateObj)=>{
     const foundedIndex = todos.findIndex(todoObj=>todoObj.id === todoID)
@@ -32,22 +33,21 @@ const handleEdittodo=(todoID,updateObj)=>{
     // แบบที่ 2
     newTodos[foundedIndex]={...newTodos[foundedIndex],...updateObj }
     setTodos(newTodos)
+    setFilterList(newTodos)
 }
 
 const handleDelete = (todoID) =>{
-    const foundedIndex = todos.findIndex(todoObj=>todoObj.id === todoID)
-    if(foundedIndex ===-1){
-        return;
-    } 
-    const newTodos = [...todos]  
-    newTodos.splice(foundedIndex,1)
-    setTodos(newTodos)
+    
+    setTodos(curr=>curr.filter((todoObj)=>todoObj.id !==todoID))
+    setFilterList(curr=>curr.filter((todoObj)=>todoObj.id !==todoID))
 } 
 
     return (
         <main className="content">
             <TodoHeader/>
-            <Addtodo onAddtodo={handleAddtodo}/>
+            <Addtodo 
+            setTodos={setTodos} 
+            setFilterList={setFilterList} />
             <TodoLists todos={todos} onEditTodo={handleEdittodo} onDelete={handleDelete}/>
         </main>
     )

@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { HiCheck, HiPencil, HiTrash } from "react-icons/hi";
 import { TodoForm } from './TodoForm';
 import {getFormattedDate} from '../../utils/DateUtils'
+import axios from 'axios';
 
 
 export function TodoItem({todo,onEditTodo,onDelete}) {
@@ -11,15 +12,35 @@ export function TodoItem({todo,onEditTodo,onDelete}) {
     const [isEdit,setIsEdit] = useState(false)
 
 
-    const handleToggleCheck = () => {
+    const updateTodo = async (oldTodo,updateObj) => {
         // setIsCheck(!isCheck)
         // console.log('state' ,!isCheck)
         // console.log('state' ,todo.status)
-        onEditTodo(todo.id,{status:!todo.status})
+
+        try{
+            let todoRequestObj = {...oldTodo,...updateObj}
+            let response = await axios.put(`http://localhost:8080/todos/${oldTodo.id}`,todoRequestObj)
+            // console.log(response.status)
+            let updatedTodo = response.data.todo
+            onEditTodo(updatedTodo.id,updatedTodo)
+        }catch(err){
+            console.log(err.response.status)
+        }
+        
+        
+        // onEditTodo(todo.id,{status:!todo.status})
     }
 
-    const handleDeleteTodo = () =>{
-        onDelete(todo.id)
+    const handleDeleteTodo = async(todoId) =>{
+        try{
+            let response = await axios.delete(`http://localhost:8080/todos/${todoId}`)
+            console.log(response.status)
+            onDelete(todoId)
+        } catch(err){
+            console.log(err.response.status)
+        }
+
+
     }
 
     const handleOpenEdit = ()=>{
@@ -33,7 +54,7 @@ export function TodoItem({todo,onEditTodo,onDelete}) {
     return (
         <>
         {!isEdit ? <li className={styles.todo__item__container} >
-            <div className={styles.checkbox__container} onClick={handleToggleCheck}>
+            <div className={styles.checkbox__container} onClick={()=>updateTodo(todo,{status:!todo.status})}>
                 <HiCheck className={CheckStyles} />
             </div>
             <p className={taskStyle}>{todo.task}</p>
@@ -41,14 +62,14 @@ export function TodoItem({todo,onEditTodo,onDelete}) {
             <div className={styles.edit__icon} onClick={handleOpenEdit}>
                 <HiPencil />
             </div>
-            <div className={styles.delete__icon} onClick={handleDeleteTodo}>
+            <div className={styles.delete__icon} onClick={()=>handleDeleteTodo(todo.id)}>
                 <HiTrash />
             </div>
         </li>:
         <TodoForm 
         submitText='Edit Take' 
         onSetIsShow={handleOpenEdit}
-        onEditTodo={onEditTodo}
+        updateTodo={updateTodo}
         todo={todo}
         />}
         </>

@@ -1,21 +1,34 @@
 import styles from './TodoForm.module.scss'
 import React, { useState } from 'react';
-import PropTypes from 'prop-types'; 
+import PropTypes from 'prop-types';
+import axios from 'axios';
 
 TodoForm.propTypes = {
-    submitText:PropTypes.string.isRequired,
-    onSetIsShow:PropTypes.func.isRequired,
-    onAddtodo:PropTypes.func,
-    onEditTodo:PropTypes.func,
-    todo:PropTypes.oneOfType([
+    submitText: PropTypes.string.isRequired,
+    onSetIsShow: PropTypes.func.isRequired,
+    onAddtodo: PropTypes.func,
+    todo: PropTypes.oneOfType([
         PropTypes.object,
     ])
 }
 
-export function TodoForm({ onSetIsShow, submitText, todo, onAddtodo, onEditTodo }) {
+export function TodoForm({ updateTodo,onSetIsShow, submitText, todo ,setTodos,setFilterList }) {
 
     const [task, setTask] = useState(todo?.task || '')
     const [iserror, setIsError] = useState(false)
+
+    const createTodo = async (todoObj) => {
+        try {
+
+            let respose = await axios.post('http://localhost:8080/todos', todoObj)
+            // console.log(respose)
+            setTodos(current =>([respose.data.todo,...current]))
+            setFilterList(current =>([respose.data.todo,...current]))
+
+        } catch (err) {
+            console.log(err)
+        }
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -26,9 +39,17 @@ export function TodoForm({ onSetIsShow, submitText, todo, onAddtodo, onEditTodo 
             return;
         } else {
             if (todo) {
-                onEditTodo(todo.id, { task });
+                updateTodo(todo,{task})
+                // onEditTodo(todo.id, { task });//ของเก่า
             } else {
-                onAddtodo(task)
+                let now = new Date().toISOString().slice(0, 10)
+                let todoObj = {
+                    task: task,
+                    status: false,
+                    date: now
+                }
+                createTodo(todoObj) // ยิง axios
+                // onAddtodo(todoObj) // แก้ internal state
             }
         }
         onSetIsShow()//จากที่ส่งมาจาก Addtodo__handleClickToAddTask && totoitem__handleOpenEdit
