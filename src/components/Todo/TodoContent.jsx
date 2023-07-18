@@ -11,7 +11,7 @@ export function TodoContent({todos,setTodos}) {
 
 //add-todo
 const handleAddtodo=(newTask)=>{
-    let newTodoObj = {id:uuidv4(),task:newTask,status:false,due_date:''}
+    let newTodoObj = {id:uuidv4(),task:newTask,status:false,ddate:''}
     //แบบที่ 1 
     // const newTodos = [newTodoObj,...todos]
     // setTodos(newTodos)
