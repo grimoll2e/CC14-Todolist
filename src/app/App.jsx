@@ -50,7 +50,7 @@ function App() {
     let filterTodo = [...todos]
 
     // filter logic : schma for filter yyyy-mm-dd
-    if (index == 0) {
+    if (index === 0) {
       setFilterList(todos)
     } else if (index === 1) {
       filterTodo = todos.filter(todoObj => todoObj.date === nowStr)

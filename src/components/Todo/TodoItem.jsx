@@ -3,7 +3,8 @@ import { useState } from 'react';
 import { HiCheck, HiPencil, HiTrash } from "react-icons/hi";
 import { TodoForm } from './TodoForm';
 import {getFormattedDate} from '../../utils/DateUtils'
-import axios from 'axios';
+// import axios from 'axios';
+import { updateTodoAPI,deleteTodoAPI } from '../../service/todoService';
 
 
 export function TodoItem({todo,onEditTodo,onDelete}) {
@@ -19,7 +20,8 @@ export function TodoItem({todo,onEditTodo,onDelete}) {
 
         try{
             let todoRequestObj = {...oldTodo,...updateObj}
-            let response = await axios.put(`http://localhost:8080/todos/${oldTodo.id}`,todoRequestObj)
+            // let response = await axios.put(`http://localhost:8080/todos/${oldTodo.id}`,todoRequestObj)
+            let response = await updateTodoAPI(oldTodo.id,todoRequestObj) 
             // console.log(response.status)
             let updatedTodo = response.data.todo
             onEditTodo(updatedTodo.id,updatedTodo)
@@ -33,7 +35,8 @@ export function TodoItem({todo,onEditTodo,onDelete}) {
 
     const handleDeleteTodo = async(todoId) =>{
         try{
-            let response = await axios.delete(`http://localhost:8080/todos/${todoId}`)
+            // let response = await axios.delete(`http://localhost:8080/todos/${todoId}`)
+            let response =await deleteTodoAPI(todoId)
             console.log(response.status)
             onDelete(todoId)
         } catch(err){

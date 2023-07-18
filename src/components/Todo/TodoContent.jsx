@@ -1,5 +1,5 @@
-import { v4 as uuidv4 } from 'uuid';
-import { useState } from 'react';
+// import { v4 as uuidv4 } from 'uuid';
+// import { useState } from 'react';
 import { Addtodo } from './Addtodo';
 import { TodoHeader } from './TodoHeader';
 import { TodoLists } from './TodoLists';
@@ -37,9 +37,9 @@ const handleEdittodo=(todoID,updateObj)=>{
 }
 
 const handleDelete = (todoID) =>{
-    
-    setTodos(curr=>curr.filter((todoObj)=>todoObj.id !==todoID))
-    setFilterList(curr=>curr.filter((todoObj)=>todoObj.id !==todoID))
+    let currTodoID = curr=>curr.filter((todoObj)=>todoObj.id !==todoID)
+    setTodos(currTodoID)
+    setFilterList(currTodoID)
 } 
 
     return (

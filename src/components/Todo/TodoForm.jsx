@@ -1,7 +1,8 @@
 import styles from './TodoForm.module.scss'
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
+// import axios from 'axios';
+import { addTodoAPI } from '../../service/todoService';
 
 TodoForm.propTypes = {
     submitText: PropTypes.string.isRequired,
@@ -20,8 +21,9 @@ export function TodoForm({ updateTodo,onSetIsShow, submitText, todo ,setTodos,se
     const createTodo = async (todoObj) => {
         try {
 
-            let respose = await axios.post('http://localhost:8080/todos', todoObj)
-            // console.log(respose)
+            // let respose = await axios.post('http://localhost:8080/todos', todoObj)
+            let respose = await addTodoAPI(todoObj)
+            // console.log(respose.status)
             setTodos(current =>([respose.data.todo,...current]))
             setFilterList(current =>([respose.data.todo,...current]))
 
